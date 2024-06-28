@@ -1,0 +1,733 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Carlos",
+      "lastname": "Perez",
+      "email": "carlitospp2510@hotmail.com",
+      "password": "Carlos10*",
+      "dni": "72498834",
+      "birthdate": "2003-10-25T14:25:00.000Z",
+      "date_register": "2024-06-27T05:45:01.766Z",
+      "phone": "969656002",
+      "photo": "assets\\images\\profile-ve.jpg",
+      "mora": 75
+    },
+    {
+      "id": "2619",
+      "name": "Alfonso",
+      "lastname": "Perez",
+      "email": "alfonso@hotmail.com",
+      "password": "alfonso2510",
+      "dni": " ",
+      "birthdate": "1994-09-16",
+      "date_register": "2024-05-21T08:53:25.940Z",
+      "phone": " ",
+      "photo": "assets\\images\\profile-18.jpg",
+      "mora": 75
+    }
+  ],
+  "customers": [
+    {
+      "id": "1",
+      "id_user": "1",
+      "name": "Alejandro",
+      "lastname": "Rojas",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "alejos@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 850,
+      "status": "Activo",
+      "payment_date": 25
+    },
+    {
+      "id": "2",
+      "id_user": "1",
+      "name": "Pedro",
+      "lastname": "Perez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 5000,
+      "status": "Bloqueado",
+      "payment_date": 25
+    },
+    {
+      "id": "3",
+      "id_user": "1",
+      "name": "Pedro",
+      "lastname": "Perez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 5000,
+      "status": "Bloqueado",
+      "payment_date": 25
+    },
+    {
+      "id": "4",
+      "id_user": "1",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Bloqueado",
+      "payment_date": 27
+    },
+    {
+      "id": "5",
+      "id_user": "1",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "6",
+      "id_user": "1",
+      "name": "Fernando",
+      "lastname": "Rojas",
+      "dni": "72487794",
+      "bithdate": "1994-07-13",
+      "phone": "959520665",
+      "email": "ferjas@hotmail.com",
+      "rate_type": "EFECTIVA",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "7",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "8",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Bloqueado",
+      "payment_date": 27
+    },
+    {
+      "id": "9",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "10",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Bloqueado",
+      "payment_date": 27
+    },
+    {
+      "id": "11",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "12",
+      "id_user": "2619",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "13",
+      "id_user": "1",
+      "name": "Alfonso",
+      "lastname": "Davis",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "alfonsodavis@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 100,
+      "status": "Activo",
+      "payment_date": 27
+    },
+    {
+      "id": "14",
+      "id_user": "1",
+      "name": "Pedro",
+      "lastname": "Sanchez",
+      "dni": "75894465",
+      "bithdate": "1994-09-16",
+      "phone": "959556558",
+      "email": "pedrosanchez@hotmail.com",
+      "rate_type": "NOMINAL",
+      "capitalization": "DIARIA",
+      "rate": 8,
+      "period": "MENSUAL",
+      "limit": 500,
+      "status": "Bloqueado",
+      "payment_date": 27
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Coca Cola 1.5L",
+      "amount": 17,
+      "price": 5.5
+    },
+    {
+      "id": "2",
+      "name": "Coca Cola 1L",
+      "price": 3.5,
+      "amount": 50
+    },
+    {
+      "id": "3",
+      "name": "Coca Cola 3L",
+      "amount": 15,
+      "price": 11
+    },
+    {
+      "id": "4",
+      "name": "Inca Cola 1.5L",
+      "price": 5.5,
+      "amount": 50
+    },
+    {
+      "id": "5",
+      "name": "Inca Cola 1L",
+      "amount": 20,
+      "price": 3.5
+    },
+    {
+      "id": "6",
+      "name": "Coca Cola 3L",
+      "price": 11.5,
+      "amount": 50
+    },
+    {
+      "id": "7",
+      "name": "Leche Gloria",
+      "price": 5,
+      "amount": 20
+    },
+    {
+      "id": "8",
+      "name": "Leche Pura Vida",
+      "price": 4,
+      "amount": 15
+    },
+    {
+      "id": "9",
+      "name": "Mantequilla Gloria",
+      "price": 5.5,
+      "amount": 15
+    },
+    {
+      "id": "10",
+      "name": "Copix G",
+      "price": 3,
+      "amount": 19
+    },
+    {
+      "id": "11",
+      "name": "Casino Menta",
+      "amount": 20,
+      "price": 1
+    },
+    {
+      "id": "12",
+      "name": "Casino Fresa",
+      "price": 1.1,
+      "amount": 10
+    },
+    {
+      "id": "13",
+      "name": "Agua Cielo 3L",
+      "price": 3.5,
+      "amount": 15
+    },
+    {
+      "id": "14",
+      "name": "Shampo Pantene Rosa",
+      "price": 1.1,
+      "amount": 50
+    },
+    {
+      "id": "15",
+      "name": "Shampo Pantene Negro",
+      "price": 1.1,
+      "amount": 50
+    },
+    {
+      "id": "16",
+      "name": "Shampo Pantene Verde",
+      "price": 1.1,
+      "amount": 50
+    },
+    {
+      "id": "17",
+      "name": "Queso Parmesano",
+      "price": 5.5,
+      "amount": 50
+    },
+    {
+      "id": "18",
+      "name": "Leche Coco Gloria",
+      "price": 8.5,
+      "amount": 15
+    },
+    {
+      "id": "19",
+      "name": "Yogur Griego Maracuya",
+      "price": 10,
+      "amount": 50
+    },
+    {
+      "id": "20",
+      "name": "Yogur Griego Fresa",
+      "price": 10,
+      "amount": 50
+    },
+    {
+      "id": "21",
+      "name": "Yogur Griego Mango",
+      "amount": 6,
+      "price": 20
+    },
+    {
+      "id": "22",
+      "name": "Mayonesa Alacena chica",
+      "price": 3.5,
+      "amount": 50
+    },
+    {
+      "id": "23",
+      "name": "Mayonesa Alacena Grande",
+      "amount": 8,
+      "price": 7.5
+    },
+    {
+      "id": "24",
+      "name": "Jamonada Suiza",
+      "price": 5.5,
+      "amount": 50
+    },
+    {
+      "id": "25",
+      "name": "Jamonada San Fernando",
+      "price": 4.5,
+      "amount": 50
+    },
+    {
+      "id": "26",
+      "name": "Hot Dog Suiza 440g",
+      "price": 11.9,
+      "amount": 50
+    },
+    {
+      "id": "c791",
+      "name": "Doña Gusta",
+      "amount": 30,
+      "price": 2
+    },
+    {
+      "id": "252a",
+      "name": "Cuates G",
+      "amount": 50,
+      "price": 3.5
+    }
+  ],
+  "purchases": [
+    {
+      "id": "1",
+      "id_customer": "1",
+      "product_name": "Leche Gloria",
+      "price": 4,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 4.08,
+      "status": "Pagado"
+    },
+    {
+      "id": "2",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "3",
+      "id_customer": "1",
+      "product_name": "Mantequilla Gloria",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "4",
+      "id_customer": "1",
+      "product_name": "Leche Gloria",
+      "price": 4,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 4.08,
+      "status": "Pagado"
+    },
+    {
+      "id": "5",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "6",
+      "id_customer": "1",
+      "product_name": "Mantequilla Gloria",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "7",
+      "id_customer": "1",
+      "product_name": "Leche Gloria",
+      "price": 4,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 4.08,
+      "status": "Pagado"
+    },
+    {
+      "id": "8",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "9",
+      "id_customer": "1",
+      "product_name": "Mantequilla Gloria",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "10",
+      "id_customer": "1",
+      "product_name": "Leche Gloria",
+      "price": 4,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 4.08,
+      "status": "Pagado"
+    },
+    {
+      "id": "11",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "12",
+      "id_customer": "1",
+      "product_name": "Mantequilla Gloria",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-05-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "13",
+      "id_customer": "1",
+      "product_name": "Leche Pura Vida",
+      "price": 4,
+      "amount": 1,
+      "date_register": "2024-04-20T00:00:00",
+      "interest": 4.08,
+      "status": "Pagado"
+    },
+    {
+      "id": "14",
+      "id_customer": "1",
+      "product_name": "Inca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-04-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "15",
+      "id_customer": "1",
+      "product_name": "9",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-04-20T00:00:00",
+      "interest": 5.6,
+      "status": "Pagado"
+    },
+    {
+      "id": "b471",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-06-05T01:14:23.891Z",
+      "interest": 5.82,
+      "status": "Pendiente"
+    },
+    {
+      "id": "e4fa",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-06-05T01:14:23.891Z",
+      "interest": 5.82,
+      "status": "Pendiente"
+    },
+    {
+      "id": "6ddd",
+      "id_customer": "1",
+      "product_name": "Casino Fresa",
+      "price": 1.1,
+      "amount": 1,
+      "date_register": "2024-06-05T01:19:36.930Z",
+      "interest": 1.16,
+      "status": "Pendiente"
+    },
+    {
+      "id": "dcfb",
+      "id_customer": "2",
+      "product_name": "Coca Cola 1L",
+      "price": 7,
+      "amount": 2,
+      "date_register": "2024-06-05T01:23:46.625Z",
+      "interest": 7.4,
+      "status": "Pendiente"
+    },
+    {
+      "id": "7402",
+      "id_customer": "1",
+      "product_name": "Coca Cola 1.5L",
+      "price": 5.5,
+      "amount": 1,
+      "date_register": "2024-06-05T01:35:01.510Z",
+      "interest": 5.82,
+      "status": "Pendiente"
+    },
+    {
+      "id": "9f4d",
+      "id_customer": "2",
+      "product_name": "Copix G",
+      "price": 6,
+      "amount": 2,
+      "date_register": "2024-06-21T06:56:07.532Z",
+      "interest": 6.06,
+      "status": "Pendiente"
+    },
+    {
+      "id": "3d08",
+      "id_customer": "6",
+      "product_name": "Casino Menta",
+      "price": 2,
+      "amount": 2,
+      "date_register": "2024-06-21T22:04:48.491Z",
+      "interest": 2.03,
+      "status": "Pendiente"
+    },
+    {
+      "id": "da46",
+      "id_customer": "13",
+      "product_name": "Coca Cola 3L",
+      "price": 11,
+      "amount": 1,
+      "date_register": "2024-06-26T04:54:52.534Z",
+      "interest": 11.06,
+      "status": "Pendiente"
+    }
+  ],
+  "payplans": [
+    {
+      "id": "9635",
+      "id_customer": "1",
+      "amount": 110,
+      "monthlyrate": 2,
+      "number_of_payments": 12,
+      "grace_periods": 2,
+      "grace_type": "total",
+      "date_register": "2024-06-22T01:35:01.510Z",
+      "status": "Pendiente"
+    },
+    {
+      "id": "3f2b",
+      "id_customer": "6",
+      "amount": 35,
+      "monthlyrate": 2,
+      "number_of_payments": 12,
+      "grace_periods": 2,
+      "grace_type": "partial",
+      "date_register": "2024-06-22T01:35:01.510Z",
+      "status": "Pendiente"
+    },
+    {
+      "id": "02e3",
+      "id_customer": "1",
+      "amount": 44,
+      "monthlyrate": 2,
+      "number_of_payments": 10,
+      "grace_periods": 2,
+      "grace_type": "total",
+      "date_register": "2024-06-22T01:35:01.510Z",
+      "status": "Pendiente"
+    },
+    {
+      "id": "ccb7",
+      "id_customer": "1",
+      "amount": 110,
+      "monthlyrate": 2,
+      "number_of_payments": 12,
+      "grace_periods": 2,
+      "grace_type": "total",
+      "date_register": "2024-06-22T19:28:41.318Z",
+      "status": "Pendiente"
+    },
+    {
+      "id": "1dca",
+      "id_customer": "14",
+      "grace_type": "none",
+      "date_register": "2024-06-26T01:02:20.042Z",
+      "status": "Pendiente"
+    },
+    {
+      "id": "2790",
+      "id_customer": "14",
+      "grace_type": "none",
+      "date_register": "2024-06-26T01:05:18.504Z",
+      "status": "Pendiente"
+    }
+  ],
+  "id": "number"
+}

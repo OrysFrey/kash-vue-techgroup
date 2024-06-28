@@ -1,0 +1,235 @@
+<div class="container">
+
+  <div class="top">
+    <form action="#" [formGroup]="salesForm">
+      <div class="user-container">
+        <h3>Usuario</h3>
+        <div class="form-field customer-field">
+          <mat-icon>search</mat-icon>
+          <select name="customer-selected" id="customer-selected" (change)="changeOption($event)" formControlName="selectedClient">
+            <option value="">Selecciona un Cliente</option>
+            <option *ngFor="let client of clients" [value]="client.id">{{ client.name + " - " + client.dni }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="amount-container">
+        <h3>Cantidad</h3>
+        <div class="form-field amount-field">
+          <mat-icon>tag</mat-icon>
+          <input type="number" formControlName="quantity">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="main-container">
+    <div class="products-container">
+      <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *cdkVirtualFor="let product of filteredProducts">
+                      <td>{{ product.id }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>
+                          <mat-icon style="cursor: pointer;" (click)="addProductToCart(product)">add</mat-icon>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="right-container">
+      <div class="cart-container">
+        <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *cdkVirtualFor="let purchase of purchasesCart">
+                        <td>{{ purchase.productName }}</td>
+                        <td>{{ purchase.price }}</td>
+                        <td>{{ purchase.amount }}</td>
+                        <td>
+                          <mat-icon style="cursor: pointer;" (click)="removeProductFromCart(purchase)">delete </mat-icon>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+        </cdk-virtual-scroll-viewport>
+      </div>
+      <div class="btn-container">
+        <fieldset class="btn" (click)="isConfirm = true" (click)="isOverlay = true" (click)="newRun()" (click)="drawer.toggle()">
+          <mat-icon>description</mat-icon>
+          <p>Siguiente</p>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="dialog-confirm" *ngIf="isConfirm">
+    <div class="input-wrap">
+      <label for="">Codigo Confirmación</label>
+      <input type="text">
+    </div>
+    <div class="btn-container" (click)="confirmSale()">
+      <div class="btn">
+        <mat-icon>send</mat-icon>
+        <p>Confirmar</p>
+      </div>
+    </div>
+  </div> -->
+
+  <mat-drawer class="sidenav-container closed" hasBackdrop="true" #drawer mode="over" position="end">
+    <div class="run-details">
+        <div class="header-details">
+            <mat-icon (click)="drawer.toggle()">close</mat-icon>
+            <h2>Detalles de financiamiento</h2>
+        </div>
+
+        <div class="main-details">
+          <form action="#" class="run-form" [formGroup]="myForm">
+              <div class="sub-title">
+                  <div class="actual-form">
+                      <div class="group-container">
+                          <div class="input-wrap">
+                              <div class="input-container">
+                                <label for="amount_finance">Monto</label>
+                                <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="amount_finance" id="amount_finance">
+                              </div>
+                          </div>
+                          <!-- <div class="input-wrap">
+                              <div class="input-container">
+                                <label for="initial_fee">Cuota Inicial %</label>
+                                <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="initial_fee" id="initial_fee">
+                              </div>
+                          </div> -->
+                          <div class="input-wrap">
+                            <div class="input-container">
+                              <label for="monthly_rate">TEM %</label>
+                              <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="monthly_rate" id="monthly_rate">
+                            </div>
+                            <div *ngIf="myForm.get('monthly_rate')?.hasError('min') && myForm.get('monthly_rate')?.touched">
+                              <span style="color: red;">La tasa debe estar entre 1% y 99%</span>
+                            </div>
+                            <div *ngIf="myForm.get('monthly_rate')?.hasError('max') && myForm.get('monthly_rate')?.touched">
+                              <span style="color: red;">La tasa debe estar entre 1% y 99%</span>
+                            </div>
+                            <div *ngIf="myForm.get('monthly_rate')?.hasError('required') && myForm.get('monthly_rate')?.touched">
+                              <span style="color: red;">Este campo es obligatorio</span>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="group-container">
+                          <div class="input-wrap">
+                              <div class="input-container">
+                                <label for="amount_fees">Cantidad de Cuotas</label>
+                                <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="amount_fees" id="amount_fees">
+                              </div>
+                              <div *ngIf="myForm.get('amount_fees')?.hasError('required') && myForm.get('amount_fees')?.touched">
+                                <span style="color: red;">Este campo es obligatorio</span>
+                              </div>
+                              <div *ngIf="myForm.get('amount_fees')?.hasError('min') && myForm.get('amount_fees')?.touched">
+                                <span style="color: red;">El minimo de cuotas es 2</span>
+                              </div>
+                          </div>
+                          <div class="input-wrap">
+                            <div class="input-container">
+                              <label for="graceType">Plazo de Gracia</label>
+                              <!-- <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="grace_period" id="grace_period"> -->
+                              <select name="graceType" id="graceType"  (change)="onGraceTypeChange($event)" formControlName="graceType">
+                                  <option value="none" selected>Ninguna</option>
+                                  <option value="total">TOTAL</option>
+                                  <option value="partial">PARCIAL</option>
+                              </select>
+                            </div>
+                            <div *ngIf="myForm.get('graceType')?.hasError('required') && myForm.get('graceType')?.touched">
+                              <span style="color: red;">Este campo es obligatorio</span>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="group-container">
+                          
+                          <div class="input-wrap" *ngIf="graceType !== 'none'">
+                              <div class="input-container">
+                                <label for="amount_grace">Cantidad de Plz. Gracia</label>
+                                <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="amount_grace" id="amount_grace" min="1" [(ngModel)]="gracePeriods" (change)="onGracePeriodsChange(gracePeriods)">
+                              </div>
+                              <div *ngIf="myForm.get('amount_grace')?.hasError('required') && myForm.get('amount_grace')?.touched">
+                                <span style="color: red;">Este campo es obligatorio</span>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- <div class="group-container">
+                          <div class="input-wrap">
+                              <label for="value_cok">COK</label>
+                              <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="value_cok" id="value_cok">
+                          </div>
+                          <div class="btn-container">
+                              <div class="btn finance" (click)="generatePaymentPlan()">
+                                  <mat-icon>price_change</mat-icon>
+                                  <p>Financiar</p>
+                              </div>
+                          </div>
+                      </div> -->
+          
+                  </div>
+              </div>
+          </form>
+          <div class="plan-container">
+              <div class="table-container">
+                  <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th>N°</th>
+                                  <th>TEM</th>
+                                  <th>Plz. Gracia</th>
+                                  <th>saldo Inicial</th>
+                                  <th>Interese</th>
+                                  <th>Cuota</th>
+                                  <th>Amortización</th>
+                                  <th>Saldo Final</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let payment of payments">
+                                  <td>{{ payment.number }}</td>
+                                  <td>{{ payment.TEM | percent:'1.2-2' }}</td>
+                                  <td>{{ payment.gracePeriod }}</td>
+                                  <td>{{ payment.initialBalance | currency:'PEN ' }}</td>
+                                  <td>{{ payment.interest | currency:'PEN ' }}</td>
+                                  <td>{{ payment.installment | currency:'PEN ' }}</td>
+                                  <td>{{ payment.amortization | currency:'PEN ' }}</td>
+                                  <td>{{ payment.finalBalance | currency:'PEN ' }}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </cdk-virtual-scroll-viewport>
+              </div>
+          </div>
+
+          <div class="btn-container" *ngIf="isFormValid()">
+            <div class="btn finance" (click)="savePayPlan()">
+                <mat-icon>price_change</mat-icon>
+                <p>Financiar</p>
+            </div>
+        </div>
+        </div>
+    </div>
+  </mat-drawer>
+    
+</div>
+
+<div [class.overlay]="drawer.opened" (click)="drawer.toggle()" class="overlay" *ngIf="isOverlay" (click)="isConfirm = false" (click)="isOverlay = false">
+</div>

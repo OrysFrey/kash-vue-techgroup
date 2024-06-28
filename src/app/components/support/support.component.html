@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="left-container">
+        <div class="top">
+            <h2>Envia una solicitud a nuestro equipo de soporte</h2>
+        </div>
+        <div class="form-container">
+            <div class="selecter">
+                <select name="select-type-request" id="select-type-request" [(ngModel)]="selectedTypeRequest">
+                    <!-- <label for="select-type-request">Tipo</label> -->
+                    <option value="BUG">BUG</option>
+                    <option value="Recomendación">Recomendación</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                <mat-icon>arrow_drop_down</mat-icon>
+            </div>
+            <div class="input">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+                  </mat-form-field>
+            </div>
+            <div class="btn send-request">
+                <mat-icon>send</mat-icon>
+                <p>Enviar</p>
+            </div>
+        </div>
+    </div>
+    <div class="right-container">
+        <div class="top">
+            <h2>Preguntas Frecuentes</h2>
+        </div>
+        <div class="frequent-questions-container">
+            <ol>
+                <li>
+                    <h4>¿Qué es la tasa de interés efectiva y cómo afecta mi préstamo?</h4>
+                    <p>La tasa de interés efectiva es la tasa que refleja el costo real de pedir dinero prestado, ya que incluye tanto la tasa de interés nominal como cualquier cargo adicional o comisión asociada al préstamo. Esta tasa es importante porque determina cuánto pagarás en total por tu préstamo. A mayor tasa de interés efectiva, mayores serán tus pagos y viceversa.</p>
+                </li>
+                <li>
+                    <h4>¿Qué pasa si quiero hacer pagos adicionales a mi préstamo?</h4>
+                    <p>Si deseas hacer pagos adicionales a tu préstamo, puedes hacerlo para reducir el monto total que debes y acelerar el pago de tu deuda. Sin embargo, es importante verificar con la entidad prestamista si hay alguna penalización por pagos anticipados o si tienen alguna política específica sobre cómo se aplicarán esos pagos adicionales.</p>
+                </li>
+                <li>
+                    <h4>¿Qué es un período de gracia y cómo funciona?</h4>
+                    <p>Un período de gracia es un período de tiempo durante el cual el prestatario no tiene que realizar pagos de capital o intereses sobre el préstamo. Este período puede ser útil para los prestatarios al permitirles ajustar sus finanzas antes de comenzar a realizar pagos. Sin embargo, es importante tener en cuenta que durante el período de gracia, es posible que los intereses continúen acumulándose, lo que puede aumentar el monto total a pagar.</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

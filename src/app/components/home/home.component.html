@@ -1,0 +1,172 @@
+<div class="container">
+    <div class="insights">
+        <div class="insight-box total-customers">
+            <div class="left">
+                <h3>Total Clientes</h3>
+                <h1>100</h1>
+            </div>
+            <div class="icon">
+                <mat-icon>groups</mat-icon>
+            </div>
+        </div>
+
+        <div class="insight-box active-customers">
+            <div class="left">
+                <h3>Clientes Activos</h3>
+                <h1>98</h1>
+            </div>
+            <div class="icon">
+                <mat-icon>how_to_reg</mat-icon>
+            </div>
+        </div>
+
+        <div class="insight-box debtor-customers">
+            <div class="left">
+                <h3>Clientes Deudores</h3>
+                <h1>5</h1>
+            </div>
+            <div class="icon">
+                <mat-icon>money_off</mat-icon>
+            </div>
+        </div>
+
+        <div class="insight-box profit">
+            <div class="left">
+                <h3>Ganancia Total</h3>
+                <h1>$50,000</h1>
+            </div>
+            <div class="icon">
+                <mat-icon>attach_money</mat-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="left">
+            <div class="chart">
+                <div class="chart-title-wrapper">
+                    <h1>Verntas Overview</h1>
+                    <button (click)="isBarChartVisible = true">Descargar</button>
+                </div>
+                <div class="profit-chart" #profitChart>
+                </div>
+                
+            </div>
+            <div class="customers">
+                <div class="customers-table">
+                    <div class="top">
+                        <h1>Clientes</h1>
+                        <div class="search">
+                            <mat-icon>search</mat-icon>
+                            <input type="text" placeholder="Buscar...">
+                        </div>
+                        <div class="options">
+                            <div class="download">
+                                <mat-icon>download</mat-icon>
+                            </div>
+                            <div class="new-customer">
+                                <mat-icon>add</mat-icon>
+                                <p>Nuevo Cliente</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre Cliente</th>
+                                    <th>Tasa</th>
+                                    <th>Límite Credito</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="customer-row" *ngFor="let customer of filteredCustomers">
+                                    <td>{{ customer.name + " " + customer.lastname }}</td>
+                                    <td>{{ customer.rate }}%</td>
+                                    <td>S/. {{ customer.limit }}</td>
+                                    <td [ngClass]="{
+                                            'status': true,
+                                            'active': customer.status === 'Activo',
+                                            'blocked': customer.status === 'Bloqueado'
+                                        }">
+                                        {{ customer.status }}
+                                    </td>
+                                    <td>
+                                        <div class="acctions">
+                                            <mat-icon>visibility</mat-icon>
+                                            <mat-icon>delete</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <a href="#">Show All</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <!-- <div class="chart">
+                <div class="chart-title-wrapper">
+                    <h1>Verntas Overview</h1>
+                    <button (click)="isBarChartVisible = true">Descargar</button>
+                </div>
+                
+                <div class="bar-chart" #barChart>
+                </div>
+            </div> -->
+        
+            <div class="calendar-container">
+                <div class="header">
+                    <h1>{{ currentMonthYear }}</h1>
+                    <div class="controlls">
+                        <div class="arrow">
+                            <mat-icon (click)="prevWeek()">arrow_back_ios</mat-icon>
+                        </div>
+                        <div class="arrow">
+                            <mat-icon (click)="nextWeek()">arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="weeek-view">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th *ngFor="let day of weekDays">{{ day }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngFor="let day of weekDates" [ngClass]="{'today': isToday(day)}">
+                                    <span>{{ day.getDate() }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="stock-alerts">
+                <div class="products">
+                    <div class="top">
+                        <h1>Alertas de Stock</h1>
+                        <div class="options">
+                            <div class="avast">
+                                <mat-icon>shopping_basket</mat-icon>
+                                <p>Avastecer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li *ngFor="let product of filteredProducts" style="display: flex; align-items: center;">
+                            <span style="margin-left: 10px; width: 50%">{{product.product}}</span>
+                            <span style="margin-left: 10px; width:25%">{{product.stock}}</span>
+                            <span class="status" [ngClass]="getStatusStockClass(product.stock)">{{getStatusStockText(product.stock)}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

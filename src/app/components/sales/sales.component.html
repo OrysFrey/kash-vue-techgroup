@@ -1,0 +1,102 @@
+<div class="container">
+
+  <div class="top">
+    <form action="#" [formGroup]="salesForm">
+      <div class="user-container">
+        <h3>Usuario</h3>
+        <div class="form-field customer-field">
+          <mat-icon>search</mat-icon>
+          <select name="customer-selected" id="customer-selected" (change)="changeOption($event)" formControlName="selectedClient">
+            <option value="">Selecciona un Cliente</option>
+            <option *ngFor="let client of clients" [value]="client.id">{{ client.name + " - " + client.dni }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="amount-container">
+        <h3>Cantidad</h3>
+        <div class="form-field amount-field">
+          <mat-icon>tag</mat-icon>
+          <input type="number" formControlName="quantity">
+        </div>
+        <div *ngIf="salesForm.get('quantity')?.hasError('required') && salesForm.get('quantity')?.touched">
+          <span style="color: red;">Este campo es obligatorio</span>
+        </div>
+        <div *ngIf="salesForm.get('quantity')?.hasError('min') && salesForm.get('quantity')?.touched">
+          <span style="color: red;">La cantidad mínima para la compra es 1</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="main-container">
+    <div class="products-container">
+      <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *cdkVirtualFor="let product of filteredProducts">
+                      <td>{{ product.id }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>
+                          <mat-icon style="cursor: pointer;" (click)="addProductToCart(product)">add</mat-icon>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="right-container">
+      <div class="cart-container">
+        <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *cdkVirtualFor="let purchase of purchasesCart">
+                        <td>{{ purchase.product_name }}</td>
+                        <td>{{ purchase.price }}</td>
+                        <td>{{ purchase.amount }}</td>
+                        <td>
+                          <mat-icon style="cursor: pointer;" (click)="removeProductFromCart(purchase)">delete </mat-icon>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+        </cdk-virtual-scroll-viewport>
+      </div>
+      <div class="btn-container">
+        <div class="btn" (click)="savePurchasesCart()" (click)="isConfirm = true" (click)="isOverlay = true">
+          <mat-icon>save</mat-icon>
+          <p>Registrar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="dialog-confirm" *ngIf="isConfirm">
+    <div class="input-wrap">
+      <label for="">Codigo Confirmación</label>
+      <input type="text">
+    </div>
+    <div class="btn-container" (click)="confirmSale()">
+      <div class="btn">
+        <mat-icon>send</mat-icon>
+        <p>Confirmar</p>
+      </div>
+    </div>
+  </div> -->
+    
+</div>
+
+<!-- <div class="overlay" *ngIf="isOverlay" (click)="isConfirm = false" (click)="isOverlay = false">
+</div> -->

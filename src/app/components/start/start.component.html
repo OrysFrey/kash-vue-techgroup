@@ -1,0 +1,113 @@
+<main>
+    <div [ngClass]="{'fade-in': showEffect}" class="box content">
+        <div class="inner-box">
+            <div class="forms-wrap">
+                <form action="#" class="sign-in-form" [formGroup]="login">
+                    <div class="logo">
+                        <img src="../../../assets/images/logo-dark.png" alt=" KashVue">
+                        <h4>KashVue</h4>
+                    </div>
+
+                    <div class="heading">
+                        <h2>Bienvenido!!!!</h2>
+                        <h6>¿No tiene una cuenta?</h6>
+                        <a href="#" class="toggle"> Crea una</a>
+                    </div>
+
+                    <div class="actual-form">
+                        <div class="input-wrap">
+                            <input type="email" minlength="4" class="input-field" autocomplete="off" formControlName="email_user" id="email_user_sign-in"/>
+                            <label for="email_user">Email</label>
+                        </div>
+
+                        <div class="input-wrap">
+                            <input type="password" minlength="4" class="input-field" autocomplete="off" formControlName="password_user" id="password_user_sign-in"/>
+                            <label for="password_user">Contraseña</label>
+                        </div>
+
+                        <p class="error" *ngIf="loginError">*Correo o contraseña incorrectos</p>
+
+                        <input type="submit" value="Iniciar Sesión" [disabled]="login.invalid" class="sign-btn" (click)="loginUser()"/>
+
+                        <p class="text">
+                            ¿Olvidaste tu contraseña o correo?
+                            <a href="#">Ayuda</a> para iniciar sesión
+                        </p>
+                    </div>
+                </form>
+
+                <form action="#" class="sign-up-form" [formGroup]="register">
+                    <div class="logo">
+                        <img src="../../../assets/images/logo-dark.png" alt=" KashVue">
+                        <h4> KashVue</h4>
+                    </div>
+
+                    <div class="heading">
+                        <h2>Empecemos!!!</h2>
+                        <h6>¿Ya tienes una cuenta?</h6>
+                        <a href="#" class="toggle"> Inicia Sesión</a>
+                    </div>
+
+                    <div class="actual-form">
+                        <div class="name_form">
+                            <div class="input-wrap">
+                                <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="name_user" id="name_user"  />
+                                <label for="name_user">Nombre</label>
+                            </div>
+                            <div class="input-wrap">
+                                <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="lastname_user" id="lastname_user"  />
+                                <label for="lastname_user">Apellido</label>
+                            </div>
+                        </div>
+
+                        <div class="input-wrap">
+                            <input type="date" minlength="4" class="input-field" autocomplete="off" formControlName="birthdate_user" id="birthdate_user"  />
+                            <label for="birthdate_user">Fecha Nacimiento</label>
+                        </div>
+                        
+                        <div class="input-wrap">
+                            <input type="email" minlength="4" class="input-field" autocomplete="off" formControlName="email_user" id="email_user"  />
+                            <label for="email_user">Email</label>
+                        </div>
+
+                        <div class="input-wrap">
+                            <input type="password" minlength="4" class="input-field" autocomplete="off" formControlName="password_user" id="password_user"  />
+                            <label for="password_user">Contraseña</label>
+                        </div>
+
+                        <input type="submit" value="Registrarse" (click)="signupUser()" [disabled]="register.invalid" class="sign-btn"/>
+
+                        <p class="text">
+                            Al registrarme acepto los <a href="#">Terminos de Servicios</a>y la 
+                            <a href="#">Política de Privacidad</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="carousel">
+                <div class="images-wrapper">
+                    <img src="../../../assets/images/image1.png" class="image img-1 show" alt="">
+                    <img src="../../../assets/images/image2.png" class="image img-2" alt="">
+                    <img src="../../../assets/images/image3.png" class="image img-3" alt="">
+                </div>
+
+                <div class="text-slider">
+                    <div class="text-wrap">
+                        <div class="text-group">
+                            <h2>Toda la info de las cuentas</h2>
+                            <h2>Personaliza tus creditos como quieras</h2>
+                            <h2>Seguimiento de cada cliente</h2>
+                        </div>
+                    </div>
+
+                    <div class="bullets">
+                        <span class="active" data-value="1"></span>
+                        <span data-value="2"></span>
+                        <span data-value="3"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

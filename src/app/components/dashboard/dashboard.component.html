@@ -1,0 +1,101 @@
+<section>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="../../../assets/images/logo-cashvue.png" alt="KashVue">
+                    <h2><span class="warning">K</span>ash<span class="warning">V</span>ue</h2>
+                </div>
+
+                <div class="close-btn">
+                    <a><mat-icon>close</mat-icon></a>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a routerLink="/dashboard/{{idUser}}/home/{{idUser}}" class="option active" (click)="title = 'Home'">
+                    <mat-icon>store</mat-icon>
+                    <h3>Mi Tienda</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/customers/{{idUser}}" class="option" (click)="title = 'Clientes'">
+                    <mat-icon>group</mat-icon>
+                    <h3>Clientes</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/sales/{{idUser}}" class="option" (click)="title = 'Ventas'">
+                    <mat-icon>point_of_sale</mat-icon>
+                    <h3>Ventas</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/paymentplan/{{idUser}}" class="option" (click)="title = 'Deudas'">
+                    <mat-icon>calendar_month</mat-icon>
+                    <h3>Financiar</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/products" class="option" (click)="title = 'Productos'">
+                    <mat-icon>inventory</mat-icon>
+                    <h3>Productos</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/profile/{{idUser}}" class="option" (click)="title = 'Perfil'">
+                    <mat-icon>account_circle</mat-icon>
+                    <h3>Mi Perfil</h3>
+                </a>
+
+                <a routerLink="/dashboard/{{idUser}}/support" class="option" (click)="title = 'Soporte'">
+                    <mat-icon>question_answer</mat-icon>
+                    <h3>Soporte</h3>
+                </a>
+
+                <a class="" (click)="close = true">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <h3>Salir</h3>
+                </a>
+            </div>
+        </aside>
+
+        <div class="right-container">
+            <nav class="navbar">
+                <div class="group1">
+                    <div class="info">
+                        <h2>{{title}}</h2>
+                    </div>
+                </div>
+
+                <div class="group2">
+                    <div class="search">
+                        <mat-icon>search</mat-icon>
+                        <input type="text" placeholder="Buscar...">
+                    </div>
+                    <div class="options">
+                        <div class="notifications">
+                            <mat-icon matBadge="7" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()"> notifications</mat-icon>
+                        </div>
+                        
+                        <div class="user-photo">
+                            <img src="{{photo}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <div class="log-out" *ngIf="close">
+        <div class="card">
+            <div class="left-sesion">
+
+            </div>
+
+            <div class="right-sesion">
+                <h2>HASTA LUEGO 😊</h2>
+                <h5>Esperamos que regrese pronto</h5>
+                <p>¿Está seguro que desea cerrar sesión?</p>
+                <button style="margin-top: 1rem;">Aceptar</button>
+                <button (click)="close = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</section>

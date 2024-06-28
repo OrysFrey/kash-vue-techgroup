@@ -1,0 +1,749 @@
+<div class="container">
+    <div class="top">
+        <div class="title-information">
+            <h2>{{countCustomers}} Clientes</h2>
+            <p>Data de clientes que han sido registrados</p>
+        </div>
+        <div class="options-top">
+            <div class="btn export">
+                <mat-icon>ios_share</mat-icon>
+                <p>Exportar</p>
+            </div>
+            <div class="btn new-customer" (click)="IsUpdate = false" (click)="drawer.toggle()">
+                <mat-icon>add</mat-icon>
+                <p>Cliente</p>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <cdk-virtual-scroll-viewport class="table-container" cdk-virtual-scroll-viewport itemSize="50">
+            <div class="options-head">
+                <div class="filter-container">
+                    <mat-icon>search</mat-icon>
+                    <input type="text" placeholder="Ingrese filtro..." matInput (keyup)="filterCustomers($event)" #input>
+                </div>
+                <div class="btn-container">
+                    <div class="btn filter" (click)="toggleFilterOptions()">
+                        <mat-icon>tune</mat-icon>
+                    </div>
+                    <div class="btn more">
+                        <mat-icon>more_horiz</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="table">
+                <table>
+                    <thead>
+                        <tr class="head-row">
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Telef.</th>
+                            <th>Email</th>
+                            <th>Limite</th>
+                            <th>Estado</th>
+                            <th>Fecha Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let customer of filteredCustomers" class="customer-row" [class.data-row]="true">
+                            <td>{{customer.id}}</td>
+                            <td>{{customer.name + " " + customer.lastname}}</td>
+                            <td>{{customer.phone}}</td>
+                            <td>{{customer.email}}</td>
+                            <td>S/. {{customer.limit}}</td>
+                            <td><div class="status-container" [ngClass]="{
+                                'status': true,
+                                'active': customer.status === 'Activo',
+                                'blocked': customer.status === 'Bloqueado'
+                            }">{{customer.status}}</div></td>
+                            <td>{{customer.payment_date}}</td>
+                            <td>
+                                <mat-icon style="cursor: pointer;" [matMenuTriggerFor]="menu" (click)="printCustomer(customer.id)" (clik)="filterPurchasesByCustomer(customer.id)">more_vert</mat-icon>
+                            </td>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="drawer.toggle()" (click)="dataForm(customer)" >
+                                    <mat-icon>visibility</mat-icon>
+                                    <span>Ver detalle</span>
+                                </button>
+                                <button mat-menu-item (click)="deleteCustomer(customer)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Eliminar</span>
+                                </button>
+                            </mat-menu>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</div>
+
+<div class="filter-pop-up">
+    <div class="filter-options-container" *ngIf="showFilterOptions">
+        <div class="close">
+            <mat-icon (click)="toggleFilterOptions()">close</mat-icon>
+        </div>
+        <div class="filter-name-lastname">
+            <div class="form filter-name">
+                <label for="password_user">Nombre</label>
+                <input type="text" class="input-filter" matInput (keyup)="filterCustomers($event)" [(ngModel)]="nameCustomer" placeholder="Nombre">
+            </div>
+            <div class="form filter-lastname">
+                <label for="password_user">Apellido</label>
+                <input type="text" class="input-filter" matInput (keyup)="filterCustomers($event)" [(ngModel)]="lastnameCustomer" placeholder="Apellido">
+            </div>
+        </div>
+        <div class="form filter-status">
+            <label for="password_user">Estado</label>
+            <select name="status" class="input-filter" (change)="filterCustomers($event)" [(ngModel)]="statusCustomer">
+                <option value="">Todos</option>
+                <option value="Activo">Activo</option>
+                <option value="Bloqueado">Bloqueado</option>
+            </select>
+        </div>
+        <div class="range-limit">
+            <div class="form filter-min-limit">
+                <label for="password_user">Credito Minimo</label>
+                <input type="text" class="input-filter" matInput (keyup)="filterCustomers($event)" [(ngModel)]="minCreditLimit" placeholder="Mínimo">
+            </div>
+            <div class="form filter-max-limit">
+                <label for="password_user">Credito Máximo</label>
+                <input type="text" class="input-filter" matInput (keyup)="filterCustomers($event)" [(ngModel)]="maxCreditLimit" placeholder="Máximo">
+            </div>
+        </div>
+        <div class="btn-cancel">
+            <button (click)="clearFilters()">Cancelar</button>
+        </div>
+        <!-- Agrega más controles de filtro según tus necesidades -->
+    </div>
+
+    <mat-drawer class="sidenav-container closed" hasBackdrop="true" #drawer mode="over" position="end">
+        <div class="customer-details" *ngIf="IsDetails">
+            <div class="header-details">
+                <mat-icon (click)="reactiveForm()" (click)="drawer.toggle()">close</mat-icon>
+                <h2>Detalles del Cliente</h2>
+            </div>
+                <form action="#" class="customer-form" [formGroup]="myForm">
+                    <div class="sub-title">
+                        <div class="personal-info">
+                            <h3>Datos Personales</h3>
+                            <div class="actual-form">
+                                <div class="group-container name-lastname-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="name_customer">Nombre</label>
+                                            <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="name_customer" id="name_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('name_customer')?.hasError('required') && myForm.get('name_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="lastname_customer">Apellidos</label>
+                                            <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="lastname_customer" id="lastname_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('lastname_customer')?.hasError('required') && myForm.get('lastname_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-container data-container">
+                                    <div class="input-wrap dni-container">
+                                        <div class="input-container">
+                                            <label for="dni_customer">DNI</label>
+                                            <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="dni_customer" id="dni_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('dni_customer')?.hasError('required') && myForm.get('dni_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('dni_customer')?.hasError('minlength') && myForm.get('dni_customer')?.touched">
+                                            <span style="color: red;">El DNI debe tener al menos 8 caracteres</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('dni_customer')?.hasError('maxlength') && myForm.get('dni_customer')?.touched">
+                                            <span style="color: red;">El DNI debe tener  8 caracteres</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="birthdate_customer">Fecha Nacimiento</label>
+                                            <input type="date" minlength="4" class="input-field" autocomplete="off" formControlName="birthdate_customer" id="birthdate_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('birthdate_customer')?.hasError('required') && myForm.get('birthdate_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-container contact-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="phone_customer">Telefono</label>
+                                            <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="phone_customer" id="phone_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('phone_customer')?.hasError('required') && myForm.get('phone_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('phone_customer')?.hasError('minlength') && myForm.get('phone_customer')?.touched">
+                                            <span style="color: red;">El Telefono debe tener al menos 9 caracteres</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('phone_customer')?.hasError('maxlength') && myForm.get('phone_customer')?.touched">
+                                            <span style="color: red;">El Telefono tener al mas 9 caracteres</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="email_customer">Email</label>
+                                            <input type="email" minlength="4" class="input-field" autocomplete="off" formControlName="email_customer" id="email_customer">
+                                        </div>
+                                        <div *ngIf="myForm.get('email_customer')?.hasError('required') && myForm.get('email_customer')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('email_customer')?.hasError('email') && myForm.get('email_customer')?.touched">
+                                            <span style="color: red;">Ingrese un correo válido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contractual-info">
+                            <h3>Datos Contractuales</h3>
+                            <div class="actual-form">
+                                <div class="group-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="rate_type">Tipo Tasa</label>
+                                            <select name="rate_type" id="rate_type" (change)="ChangeValue($event)" formControlName="rate_type">
+                                                <option value="" disabled selected>Selecciona un tipo</option>
+                                                <option value="EFECTIVA">EFECTIVA</option>
+                                                <option value="NOMINAL">NOMINAL</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="myForm.get('rate_type')?.hasError('required') && myForm.get('rate_type')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap" *ngIf="!IsEffective">
+                                        <div class="input-container">
+                                            <label for="capitalization">Capitalizacion</label>
+                                            <!-- <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="capitalization" id="capitalization"> -->
+                                            <select name="capitalization" id="capitalization" formControlName="capitalization">
+                                                <option value="" disabled selected>Selecciona un tipo</option>
+                                                <option value="DIARIA">DIARIA</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="myForm.get('capitalization')?.hasError('required') && myForm.get('capitalization')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="rate">Tasa %</label>
+                                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="rate" id="rate">
+                                        </div>
+                                        <div *ngIf="myForm.get('rate')?.hasError('required') && myForm.get('rate')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('rate')?.hasError('min') && myForm.get('rate')?.touched">
+                                            <span style="color: red;">La tasa debe ser mayo a 0</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('rate')?.hasError('max') && myForm.get('rate')?.touched">
+                                            <span style="color: red;">La tasa debe ser menor a 99</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="period">Periodo</label>
+                                            <!-- <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="period" id="period"> -->
+                                            <select name="period" id="period" formControlName="period">
+                                                <option value="" disabled selected>Selecciona un tipo</option>
+                                                <option value="MENSUAL">MENSUAL</option>
+                                                <option value="BIMESTRAL">BIMESTRAL</option>
+                                                <option value="TRIMESTRAL">TRIMESTRAL</option>
+                                                <option value="CUATRIMESTRAL">CUATRIMESTRAL</option>
+                                                <option value="SEMESTRAL">SEMESTRAL</option>
+                                                <option value="ANUAL">ANUAL</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="myForm.get('period')?.hasError('required') && myForm.get('period')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="credit_limit">Límite Crédito</label>
+                                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="credit_limit" id="credit_limit">
+                                        </div>
+                                        <div *ngIf="myForm.get('credit_limit')?.hasError('required') && myForm.get('credit_limit')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('credit_limit')?.hasError('min') && myForm.get('credit_limit')?.touched">
+                                            <span style="color: red;">El limite crediticio debe ser mayor a 0</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="payment_date">Fecha Pagdo</label>
+                                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="payment_date" id="payment_date">
+                                        </div>
+                                        <div *ngIf="myForm.get('payment_date')?.hasError('required') && myForm.get('payment_date')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('payment_date')?.hasError('min') && myForm.get('payment_date')?.touched">
+                                            <span style="color: red;">El dia de pago debe ser una fecha válida entre 1-30</span>
+                                        </div>
+                                        <div *ngIf="myForm.get('payment_date')?.hasError('max') && myForm.get('payment_date')?.touched">
+                                            <span style="color: red;">El dia de pago debe ser una fecha válida entre 1-30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-container">
+                                    <div class="input-wrap">
+                                        <div class="input-container">
+                                            <label for="status_user">Estado</label>
+                                            <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="status_user" id="status_user">
+                                        </div>
+                                        <div *ngIf="myForm.get('status_user')?.hasError('required') && myForm.get('status_user')?.touched">
+                                            <span style="color: red;">Este campo es obligatorio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-container">
+                            <div class="btn save-change" *ngIf="isFormValid()" (click)="saveChange()">
+                                <mat-icon>save</mat-icon>
+                                <p>Guardar</p>
+                            </div>
+                            <div class="btn view-report" *ngIf="IsUpdate" (click)="filterPurchasesByMonth()" (click)="openBillTotal()" (click)="IsReports = true" (click)="IsDetails = false"  >
+                                <mat-icon>newspaper</mat-icon>
+                                <p>Reportes</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+
+        <div class="report-details" *ngIf="IsReports">
+            <div class="header-report">
+                <mat-icon (click)="IsReports = false" (click)="IsDetails = true">reply</mat-icon>
+                <h2>Reportes de Cuenta</h2>
+            </div>
+            <div class="reports-container">
+                <div class="report-box purchase-month">
+                    <div class="top">
+                        <h3>Compras del mes</h3>
+                        <!-- <mat-form-field>
+                            <mat-label>Seleccionar Mes</mat-label>
+                            <mat-select [(value)]="selectedMonth" (selectionChange)="filterPurchasesByMonth()">
+                                <mat-option *ngFor="let month of months" [value]="month.value">{{ month.viewValue }}</mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                        <div class="select-month">
+                            <select name="select-montth" id="select-month" [(ngModel)]="selectedMonth"print (change)="filterPurchasesByMonth()">
+                                <option *ngFor="let month of months" [ngValue]="month.value">{{ month.viewValue}}</option>
+                            </select>
+                            <mat-icon>arrow_drop_down</mat-icon>
+                        </div>
+                    </div>
+                    <div class="report-main-container">
+                        <div class="report-table">
+                            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>PRODUCTO</th>
+                                            <th>PRECIO</th>
+                                            <th>CANTIDAD</th>
+                                            <th>ESTADO</th>
+                                            <th>FECHA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *cdkVirtualFor="let purchase of filteredPurchases" class="purchase-row">
+                                            <td>{{ purchase.product_name }}</td>
+                                            <td style="text-align: center;">{{ purchase.price }}</td>
+                                            <td style="text-align: center;">{{ purchase.amount }}</td>
+                                            <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                                            <td style="text-align: center;">{{ purchase.status }}</td>
+                                            <td>
+                                                <!-- <mat-icon style="cursor: pointer;">visibility</mat-icon> -->
+                                                {{ getDateRegister(purchase.date_register) }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </cdk-virtual-scroll-viewport>
+                        </div>
+                        <div class="options-report">
+                            <div class="btn-container">
+                                <div class="btn payment-account" (click)="openPaymentPopup()">
+                                    <mat-icon>payments</mat-icon>
+                                    <p>Pagar Cuenta</p>
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <div class="btn payment-account" (click)="openBillTotal()" (click)="IsBillTotal = true">
+                                    <mat-icon>payments</mat-icon>
+                                    <p>Deuda Total</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-box payments">
+                    <div class="top">
+                        <h3>Pagos</h3>
+                    </div>
+                    <div class="report-table">
+                        <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>MES</th>
+                                        <th>CONSUMO</th>
+                                        <th>INTERESES</th>
+                                        <th>PAGO</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *cdkVirtualFor="let summary of monthlySummary" class="purchase-row">
+                                        <td>{{ summary.month }}</td>
+                                        <td style="text-align: center;">{{ summary.consumption }}</td>
+                                        <td style="text-align: center;">{{ summary.interest }}</td>
+                                        <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                                        <td>{{ summary.status }}</td>
+                                        <td style="text-align: center;">
+                                            <mat-icon style="cursor: pointer;" (click)="openBillForMonth(summary.month)">visibility</mat-icon>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </cdk-virtual-scroll-viewport>
+                    </div>
+                </div>
+
+                <div class="report-box payments-plans">
+                    <div class="top">
+                        <h3>Planes de Pagos</h3>
+                    </div>
+                    <div class="report-table">
+                        <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>FECHA</th>
+                                        <th>CONSUMO</th>
+                                        <th>N° CUOTAS</th>
+                                        <th>ESTADO</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *cdkVirtualFor="let payplan of filteredPayPlans" class="purchase-row">
+                                        <td>{{ getDateRegister(payplan.date_register) }}</td>
+                                        <td style="text-align: center;">{{ payplan.amount }}</td>
+                                        <td style="text-align: center;">{{ payplan.number_of_payments }}</td>
+                                        <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                                        <td>{{ payplan.status }}</td>
+                                        <td style="text-align: center;">
+                                            <mat-icon style="cursor: pointer;" (click)="openPayPlanSummary(payplan)" (click)="IsReports=false" (click)="IsPayPlanSummary=true">visibility</mat-icon>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </cdk-virtual-scroll-viewport>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="plan-details" *ngIf="IsPayPlanSummary">
+            <div class="run-details">
+                <div class="header-details">
+                    <mat-icon (click)="IsPayPlanSummary=false" (click)="IsReports=true">reply</mat-icon>
+                    <h2>Detalles de financiamiento</h2>
+                </div>
+        
+                <div class="main-details">
+                  <div class="form" class="run-form">
+                      <div class="sub-title">
+                          <div class="actual-form">
+                              <div class="group-container">
+                                  <div class="input-wrap">
+                                      <label for="amount_finance">Monto</label>
+                                      <p>{{amount_finance}}</p>
+                                  </div>
+                                  <div class="input-wrap">
+                                      <label for="initial_fee">Cuota Inicial %</label>
+                                        <p>{{initial_fee}}</p>
+                                  </div>
+                              </div>
+                              <div class="group-container">
+                                  <div class="input-wrap">
+                                      <label for="monthly_rate">TEM %</label>
+                                      <p>{{monthly_rate}}</p>
+                                  </div>
+                                  <div class="input-wrap">
+                                      <label for="amount_fees">Cantidad de Cuotas</label>
+                                      <p>{{amount_fees}}</p>
+                                  </div>
+                              </div>
+                              <div class="group-container">
+                                  <div class="input-wrap">
+                                      <label for="graceType">Plazo de Gracia</label>
+                                      <p>{{grace_type}}</p>
+                                  </div>
+                                  <div class="input-wrap" *ngIf="grace_type !== 'none'">
+                                      <label for="amount_grace">Cantidad de Plz. Gracia</label>
+                                      <p>{{grace_periods}}</p>
+                                  </div>
+                              </div>
+                              <div class="group-container">
+                                  <!-- <div class="input-wrap">
+                                      <label for="value_cok">COK</label>
+                                      value_cok
+                                  </div> -->
+                                  <!-- <div class="btn-container">
+                                      <div class="btn finance" (click)="generatePaymentPlan()">
+                                          <mat-icon>price_change</mat-icon>
+                                          <p>Financiar</p>
+                                      </div>
+                                  </div> -->
+                              </div>
+                  
+                          </div>
+                      </div>
+                    </div>
+                  <div class="plan-container">
+                      <div class="table-container">
+                          <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>N°</th>
+                                          <th>TEM</th>
+                                          <th>Plz. Gracia</th>
+                                          <th>saldo Inicial</th>
+                                          <th>Interese</th>
+                                          <th>Cuota</th>
+                                          <th>Amortización</th>
+                                          <th>Saldo Final</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let payment of paymentsPlan">
+                                          <td>{{ payment.number }}</td>
+                                          <td>{{ payment.TEM | percent:'1.2-2' }}</td>
+                                          <td>{{ payment.gracePeriod }}</td>
+                                          <td>{{ payment.initialBalance | currency:'PEN ' }}</td>
+                                          <td>{{ payment.interest | currency:'PEN ' }}</td>
+                                          <td>{{ payment.installment | currency:'PEN ' }}</td>
+                                          <td>{{ payment.amortization | currency:'PEN ' }}</td>
+                                          <td>{{ payment.finalBalance | currency:'PEN ' }}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </cdk-virtual-scroll-viewport>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </mat-drawer>
+
+    
+</div>
+
+<div class="bill" *ngIf="IsBill">
+    <div class="close">
+        <mat-icon (click)="closePaymentPopup()">close</mat-icon>
+    </div>
+    <div class="top">
+        <h2>Factura de Mes</h2>
+    </div>
+    <div class="main-container">
+        <h3>Carrito</h3>
+        <div class="report-table">
+            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>INTERES</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let purchase of filteredPurchases" class="purchase-row">
+                            <td>{{ purchase.product_name }}</td>
+                            <td>{{ purchase.price }}</td>
+                            <td>{{ purchase.amount }}</td>
+                            <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                            <td>{{ purchase.interest }}</td>
+                            <td>
+                                <!-- <mat-icon style="cursor: pointer;">visibility</mat-icon> -->
+                                {{ purchase.date_register}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+        <div class="total-consumption">
+            <h3 style="color: red;"><strong>MORA {{ moratoriumInterest }}</strong></h3>
+            <h3><strong>TOTAL</strong></h3>
+            <h3><strong>{{ totalPayment }}</strong></h3>
+        </div>
+        <div class="payment-info">
+            <h4>BCP:    191-26595868-0-97</h4>
+            <h4>CCI:    004-191-126595 868097-50</h4>
+            <h4>BBVA:   0011-0125-0300605844</h4>
+            <h4>YAPE:   989548002           PLIN:   969585002</h4>
+        </div>
+        <div class="btn-container">
+            <div class="btn" (click)="payBillMonth()">
+                <mat-icon>credit_card</mat-icon>
+                <p>Pagar</p>
+            </div>
+            <div class="btn" (click)="generatePDF()">
+                <mat-icon>print</mat-icon>
+                <p>Imprimir</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bill" *ngIf="IsBillMonth">
+    <div class="close">
+        <mat-icon (click)="closePaymentPopup()">close</mat-icon>
+    </div>
+    <div class="top">
+        <h2>Factura de Mes Pagado</h2>
+    </div>
+    <div class="main-container">
+        <h3>Carrito</h3>
+        <div class="report-table">
+            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>INTERES</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let purchase of filteredPurchasesMonth" class="purchase-row">
+                            <td>{{ purchase.product }}</td>
+                            <td>{{ purchase.price }}</td>
+                            <td>{{ purchase.amount }}</td>
+                            <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                            <td>{{ purchase.interest }}</td>
+                            <td>
+                                <!-- <mat-icon style="cursor: pointer;">visibility</mat-icon> -->
+                                {{ purchase.date}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+        <div class="total-consumption">
+            <h3 style="color: red;"><strong>MORA {{ moratoriumInterestMonth }}</strong></h3>
+            <h3><strong>TOTAL</strong></h3>
+            <h3><strong>{{ totalPaymentMonth }}</strong></h3>
+        </div>
+        <div class="payment-info">
+            <h4>BCP:    191-26595868-0-97</h4>
+            <h4>CCI:    004-191-126595 868097-50</h4>
+            <h4>BBVA:   0011-0125-0300605844</h4>
+            <h4>YAPE:   989548002           PLIN:   969585002</h4>
+        </div>
+        <div class="btn-container">
+            <div class="btn" (click)="payBillSummaryMonth()">
+                <mat-icon>credit_card</mat-icon>
+                <p>Pagar</p>
+            </div>
+            <div class="btn" (click)="generatePDFMonthly()">
+                <mat-icon>print</mat-icon>
+                <p>Imprimir</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bill" *ngIf="IsBillTotal">
+    <div class="close">
+        <mat-icon (click)="closePaymentPopup()">close</mat-icon>
+    </div>
+    <div class="top">
+        <h2>Deuda Total</h2>
+    </div>
+    <div class="main-container">
+        <h3>Carrito</h3>
+        <div class="report-table">
+            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>INTERES</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let purchase of allPurchases" class="purchase-row">
+                            <td>{{ purchase.product_name }}</td>
+                            <td>{{ purchase.price }}</td>
+                            <td>{{ purchase.amount }}</td>
+                            <!-- <td>{{ generateInteres(purchase.price, purchase.date) }}</td> -->
+                            <td>{{ purchase.interest }}</td>
+                            <td>
+                                <!-- <mat-icon style="cursor: pointer;">visibility</mat-icon> -->
+                                {{ purchase.date_register}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+        <div class="total-consumption">
+            <h3 style="color: red;"><strong>MORA {{ moratoriumInterestTotal }}</strong></h3>
+            <h3><strong>TOTAL</strong></h3>
+            <h3><strong>{{ totalPaymentTotal }}</strong></h3>
+        </div>
+        <div class="payment-info">
+            <h4>BCP:    191-26595868-0-97</h4>
+            <h4>CCI:    004-191-126595 868097-50</h4>
+            <h4>BBVA:   0011-0125-0300605844</h4>
+            <h4>YAPE:   989548002           PLIN:   969585002</h4>
+        </div>
+        <div class="btn-container">
+            <div class="btn" (click)="payBillTotal()">
+                <mat-icon>credit_card</mat-icon>
+                <p>Pagar</p>
+            </div>
+            <div class="btn" (click)="generatePDFMonthly()">
+                <mat-icon>print</mat-icon>
+                <p>Imprimir</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [class.overlay]="drawer.opened" (click)="reactiveForm()" (click)="drawer.toggle()" (click)="closePaymentPopup()" (click)="IsReports = false" (click)="IsDetails = true" (click)="IsPayPlanSummary = false">
+</div>

@@ -1,0 +1,143 @@
+<div class="container">
+    <div class="options">
+        <div class="search">
+            <mat-icon>search</mat-icon>
+            <input type="text" placeholder="Ingrese filtro..." matInput (keyup)="filterProducts($event)" #input>
+        </div>
+
+        <div class="selecter">
+            <select name="select-stock-status" id="select-stock-status" [(ngModel)]="selectedStockStatus" (change)="filterPurchasesByStockStatus()">
+                <option value="">Todos</option>
+                <option value="Crítico">Crítico</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Bueno">Bueno</option>
+            </select>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="products-container">
+            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let product of filteredProducts">
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.amount }}</td>
+                            <td><div class="status-container" [ngClass]="getStatusStockClass(product.amount)">{{ getStatusStock(product.amount) }}</div></td>
+                            <td>
+                                <mat-icon style="cursor: pointer;" [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                            </td>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="dataForm(product)" (click)="id = product.id">
+                                    <mat-icon>visibility</mat-icon>
+                                    <span>Ver detalle</span>
+                                </button>
+                                <button mat-menu-item (click)="deleteProduct(product)" (click)="id = product.id">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Eliminar</span>
+                                </button>
+                            </mat-menu>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+        <div class="product-register-container">
+            <form action="#" [formGroup]="myForm">
+                <div class="form-container">
+                    <div class="input-wrap">
+                        <label for="name_product">Producto</label>
+                        <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="name_product" id="name_product">
+                        <div *ngIf="myForm.get('name_product')?.hasError('required') && myForm.get('name_product')?.touched">
+                            <span style="color: red;">Este campo es obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="amount_product">Cantidad</label>
+                        <div class="input-unit">
+                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="amount_product" id="amount_product">
+                            <p>Unidades</p>
+                        </div>
+                        <div *ngIf="myForm.get('amount_product')?.hasError('required') && myForm.get('amount_product')?.touched">
+                            <span style="color: red;">Este campo es obligatorio</span>
+                        </div>
+                        <div *ngIf="myForm.get('amount_product')?.hasError('min') && myForm.get('amount_product')?.touched">
+                            <span style="color: red;">La cantidad mínima es de 1</span>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="price_product">Precio</label>
+                        <div class="input-unit">
+                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="price_product" id="price_product">
+                            <p>Soles</p>
+                        </div>
+                        <div *ngIf="myForm.get('price_product')?.hasError('required') && myForm.get('price_product')?.touched">
+                            <span style="color: red;">Este campo es obligatorio</span>
+                        </div>
+                        <div *ngIf="myForm.get('price_product')?.hasError('min') && myForm.get('price_product')?.touched">
+                            <span style="color: red;">El precio mínimo debe ser 0.10 soles</span>
+                        </div>
+                        <div *ngIf="myForm.get('price_product')?.hasError('pattern') && myForm.get('price_product')?.touched">
+                            <span style="color: red;">El precio debe tener a lo mas 2 decimales</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <div class="btn payment-account" (click)="registerProduct()">
+                    <mat-icon>save</mat-icon>
+                    <p *ngIf="isInsert">Registrar</p>
+                    <p *ngIf="!isInsert">Actualizar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="sidenav">
+    <mat-drawer class="sidenav-container closed" hasBackdrop="true" #drawer mode="over" position="end">
+        <div class="product-register-container">
+            <form action="#" [formGroup]="myForm">
+                <div class="form-container">
+                    <div class="input-wrap">
+                        <label for="name_product">Producto</label>
+                        <input type="text" minlength="4" class="input-field" autocomplete="off" formControlName="name_product" id="name_product">
+                    </div>
+                    <div class="input-wrap">
+                        <label for="amount_product">Cantidad</label>
+                        <div class="input-unit">
+                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="amount_product" id="amount_product">
+                            <p>Unidades</p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label for="price_product">Precio</label>
+                        <div class="input-unit">
+                            <input type="number" minlength="4" class="input-field" autocomplete="off" formControlName="price_product" id="price_product">
+                            <p>Soles</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <div class="btn payment-account" (click)="isInsert = false" (click)="registerProduct()">
+                    <mat-icon>save</mat-icon>
+                    <p>Actualizar</p>
+                </div>
+            </div>
+        </div>
+    </mat-drawer>
+</div> -->
+
+<!-- <div [class.overlay]="drawer.opened" (click)="drawer.toggle()">
+</div> -->

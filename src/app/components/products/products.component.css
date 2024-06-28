@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+a{
+    list-style: none;
+    text-decoration: none;
+}
+
+.container{
+    margin: 10px 0;
+    font-family: Poppins, sans-serif;
+    /* font-size: 0.78rem; */
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    /* grid-template-rows: 30% 1fr; */
+    margin-top: 0;
+    padding: 30px;
+    padding-bottom: 0;
+    /* background-color: #f1f5fb; */
+
+    
+    
+}
+
+.container .options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    gap: 2rem;
+}
+
+.container .options .search{
+    background-color: aqua;
+    position: relative;
+    width: 50%;
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    gap: 10px;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+.container .options .selecter{
+    background-color: aqua;
+    position: relative;
+    width: 50%;
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    gap: 10px;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+.search input{
+    width: 100%;
+}
+
+.selecter select{
+    width: 100%;
+}
+
+.container .main-container{
+    display: flex;
+    gap: 3rem;
+}
+
+
+.container .main-container .products-container{
+    width: 54%;
+    /* height: 500px; */
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    padding-bottom: 10px;
+    /* background-color: #41f1b6; */
+    border-collapse: collapse;
+}
+
+.virtual-scroll-viewport{
+    /* background-color: #41f1b6; */
+    width: 100%;
+    height: 470px;
+    overflow: auto;
+}
+
+table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px
+}
+
+table th,
+table td{
+    padding: 8px;
+    text-align: left;
+}
+
+table th{
+    color: #868788;
+}
+
+table td{
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+tbody tr{
+    height: 30px;
+    margin: 0;
+}
+
+.status-container.good {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    color: #11d997;
+    width: 90px;
+    background-color: rgb(206, 250, 234);
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid #25f6b0;
+    /* margin-top: 7px; */
+}
+  
+.status-container.low {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 100px;
+    background-color: rgb(252, 236, 197);
+    color: rgb(248, 180, 9);
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid rgb(248, 180, 9);
+    /* margin-top: 7px; */
+}
+
+.status-container.critical {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 100px;
+    background-color: rgb(255, 208, 208);
+    color: red;
+    padding: 5px;
+    border-radius: 5px; 
+    border: 2px solid red;
+    /* margin-top: 7px; */
+}
+
+::ng-deep .cdk-virtual-scroll-viewport::-webkit-scrollbar {
+    width: 0;
+}
+
+::ng-deep .cdk-virtual-scroll-viewport::-webkit-scrollbar-horizontal {
+    height: 0;  /* Oculta la barra de desplazamiento horizontal */
+}
+
+::ng-deep .cdk-virtual-scroll-viewport::-webkit-scrollbar-horit-button {
+    display: none;  /* Oculta las flechas de desplazamiento */
+    height: 0;
+    width: 0;
+}
+
+::ng-deep .cdk-virtual-scroll-viewport {
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en navegadores que lo soportan */
+}
+
+::ng-deep .cdk-virtual-scroll-viewport::-webkit-scrollbar {
+  display: none; /* Oculta la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
+}
+
+.main-container .product-register-container{
+    width: 50%;
+    padding: 20px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-register-container .form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.form-container .input-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-wrap label{
+    font-weight: 500;
+}
+
+.input-wrap .input-unit{
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.input-unit p{
+    margin: 0;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.input-wrap input{
+    background-color: #41f1b6;
+    width: 50%;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.form-container .input-wrap:first-child input{
+    width: 100%;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: right;
+    margin-bottom: 0;
+}
+
+.btn{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid black;
+    padding: 5px;
+    background-color: black;
+    background-color: #41f1b6;
+    border-radius: 5px;
+    color: #F7F7F0;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.btn p{
+    margin: 0;
+}
+.btn:hover{
+    box-shadow: 0.2rem 0.2rem 15px #868788;
+}
+
+.sidenav{
+    background-color: #41f1b6;
+    z-index: 3000;
+}
+
+.mat-drawer-backdrop {
+    transition: opacity 0.3s ease-in-out; /* Suaviza la transición del overlay */
+}
+
+.sidenav-container{
+    position: fixed;
+    background-color: white;
+    /* top: 3rem; */
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    /* margin: 12px; */
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 3000;
+    transform: translateX(100%); /* Inicialmente fuera de la pantalla */
+    transition: transform 0.4s ease-in-out ease-out;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}

@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    /* list-style: none; */
+    box-sizing: border-box;
+}
+
+a{
+    /* list-style: none; */
+    text-decoration: none;
+}
+
+.container{
+    padding: 25px;
+    padding-top: 25px;
+    display: flex;
+    /* justify-content: space-between; */
+    /* gap: 1rem; */
+}
+
+.container .left-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.container .left-container .top h2{
+    margin: 0;
+    font-weight: 700;
+}
+
+.container .left-container .form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.left-container .form-container .selecter{
+    background-color:white;
+    display: flex;
+    /* align-items: center; */
+    height: 40px;
+    padding: 5px;
+    width: 280px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.form-container .selecter select{
+    width: 100%;
+}
+
+.left-container .form-container .input{
+    background-color:white;
+    width: 380px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.form-container .input mat-form-field{
+    width: 100%;
+}
+
+
+.form-container .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    border: 2px solid black;
+    /* padding: 5px; */
+    background-color: black;
+    background-color: #41f1b6;
+    border-radius: 5px;
+    color: #F7F7F0;
+    color: black;
+    cursor: pointer;
+    width: 130px;
+    /* height: 30px; */
+    padding: 5px;
+}
+
+.btn p{
+    margin: 0;
+}
+
+.btn:hover{
+    box-shadow: 0.2rem 0.2rem 15px #868788;
+}
+
+
+.container .right-container{
+    width: 50%;
+}
+
+.right-container .top h2{
+    /* color:#41f1b6; */
+    font-weight: 700;
+}
+
+ol{
+    list-style-type: decimal;
+}
+
+ol li{
+    color: #41f1b6;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+}
+
+ol li h4{
+    font-weight: 600;
+    color: #41f1b6;
+    font-size: 20px;
+    margin: 0;
+}
+
+li p{
+    margin-top: 1.5rem;
+    color: black;
+    font-weight: 400;
+    font-size: 14px;
+}
