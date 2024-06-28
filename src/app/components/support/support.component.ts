@@ -24,12 +24,4 @@ export class SupportComponent {
   ngOnInit(){
 
   }
-
-  saveQuestion():void{
-    this.idUser = this.activatedRoute.snapshot.params["id"];
-    const question: Questions = {
-      id: this.id,
-      UserId: 
-    }
-  }
 }
